@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}index{% endblock %}
+{% block body %}
+    <h2>nombre: {{ etudiants|length }}</h2>
+    <div class="form-group mx-3">
+        {% for etudiant in etudiants%}
+            <h5>{{ etudiant.enom }}</h5>
+            <h5>{{ etudiant.eprenom }}</h5>
+            <h5>{{ etudiant.classe }}</h5>
+            <h5>{{ etudiant.dateNais.format('d-m-Y') }}</h5>
+            <a class="btn btn-outline-secondary " href="etudiant/view/{{ etudiant.id }}">view</a>
+            <a class="btn btn-outline-primary " href="etudiant/update/{{ etudiant.id }}">Edit</a>
+        {% endfor %}
+    </div>
+    <a class="btn btn-outline-success mt-4 mx-3" href="/etudiant/create">create</a>
+    <a href="{{ path('app_logout') }}">logout</a>
+{% endblock %}
