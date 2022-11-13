@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\EtudiantRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
+#[UniqueEntity('Nmat',message: 'email dejà utilisé',)]
 class Etudiant
 {
     #[ORM\Id]
@@ -26,6 +28,10 @@ class Etudiant
     #[ORM\Column(length: 10)]
     private ?string $classe = null;
 
+//    #[ORM\]
+    #[ORM\Column(length: 10)]
+    private ?string $Nmat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -33,24 +39,24 @@ class Etudiant
 
     public function getEnom(): ?string
     {
-        return $this->enom;
+        return strtoupper($this->enom);
     }
 
     public function setEnom(string $enom): self
     {
-        $this->enom = $enom;
+        $this->enom = strtoupper($enom);
 
         return $this;
     }
 
     public function getEprenom(): ?string
     {
-        return $this->eprenom;
+        return strtolower($this->eprenom);
     }
 
     public function setEprenom(string $eprenom): self
     {
-        $this->eprenom = $eprenom;
+        $this->eprenom = strtolower($eprenom);
 
         return $this;
     }
@@ -69,12 +75,24 @@ class Etudiant
 
     public function getClasse(): ?string
     {
-        return $this->classe;
+        return strtolower($this->classe);
     }
 
     public function setClasse(string $classe): self
     {
-        $this->classe = $classe;
+        $this->classe = strtolower($classe);
+
+        return $this;
+    }
+
+    public function getNmat(): ?string
+    {
+        return $this->Nmat;
+    }
+
+    public function setNmat(string $Nmat): self
+    {
+        $this->Nmat = $Nmat;
 
         return $this;
     }

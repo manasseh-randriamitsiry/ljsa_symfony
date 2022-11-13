@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Classe;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -21,8 +22,18 @@ class ClasseCrudController extends AbstractCrudController
 //                ->onlyOnIndex();
             yield TextField::new('classe');
             yield NumberField::new('coeffTotal');
-            yield NumberField::new('total')
-                ->hideOnForm();
+    }
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // defines the initial sorting applied to the list of entities
+            // (user can later change this sorting by clicking on the table columns)
+            ->setDefaultSort(['classe' => 'DESC'])
+//            ->setDefaultSort(['id' => 'DESC', 'title' => 'ASC', 'startsAt' => 'DESC'])
+            // you can sort by Doctrine associations up to two levels
+//            ->setDefaultSort(['seller.name' => 'ASC'])
+            ->addFormTheme('foo.html.twig')
+            ;
     }
 
 }

@@ -17,40 +17,40 @@ class Seconde
     private ?string $N_matricule = null;
 
     #[ORM\Column]
-    private ?int $MLG = null;
+    private ?float $MLG = null;
 
     #[ORM\Column]
-    private ?int $FRS = null;
+    private ?float $FRS = null;
 
     #[ORM\Column]
-    private ?int $ANG = null;
+    private ?float $ANG = null;
 
     #[ORM\Column]
-    private ?int $HG = null;
+    private ?float $HG = null;
 
     #[ORM\Column]
-    private ?int $EAC = null;
+    private ?float $EAC = null;
 
     #[ORM\Column]
-    private ?int $SES = null;
+    private ?float $SES = null;
 
     #[ORM\Column]
-    private ?int $SPC = null;
+    private ?float $SPC = null;
 
     #[ORM\Column]
-    private ?int $MATH = null;
+    private ?float $MATH = null;
 
     #[ORM\Column]
-    private ?int $EPS = null;
+    private ?float $EPS = null;
 
     #[ORM\Column]
-    private ?int $TICE = null;
+    private ?float $TICE = null;
 
     #[ORM\Column]
-    private ?int $trimestre = null;
+    private ?float $trimestre = null;
 
     #[ORM\Column]
-    private ?int $annee_scolaire = null;
+    private ?float $annee_scolaire = null;
 
 
     public function getId(): ?int
@@ -70,130 +70,130 @@ class Seconde
 
     public function getNMat(): ?string
     {
-        return $this->N_matricule;
+        return strtoupper($this->N_matricule);
     }
 
     public function setNMat(string $N_matricule): self
     {
-        $this->N_matricule = $N_matricule;
+        $this->N_matricule = strtoupper($N_matricule);
 
         return $this;
     }
 
-    public function getMLG(): ?int
+    public function getMLG(): ?float
     {
         return $this->MLG;
     }
 
-    public function setMLG(int $MLG): self
+    public function setMLG(float $MLG): self
     {
         $this->MLG = $MLG;
 
         return $this;
     }
 
-    public function getFRS(): ?int
+    public function getFRS(): ?float
     {
         return $this->FRS;
     }
 
-    public function setFRS(int $FRS): self
+    public function setFRS(float $FRS): self
     {
         $this->FRS = $FRS;
 
         return $this;
     }
 
-    public function getANG(): ?int
+    public function getANG(): ?float
     {
         return $this->ANG;
     }
 
-    public function setANG(int $ANG): self
+    public function setANG(float $ANG): self
     {
         $this->ANG = $ANG;
 
         return $this;
     }
 
-    public function getHG(): ?int
+    public function getHG(): ?float
     {
         return $this->HG;
     }
 
-    public function setHG(int $HG): self
+    public function setHG(float $HG): self
     {
         $this->HG = $HG;
 
         return $this;
     }
 
-    public function getEAC(): ?int
+    public function getEAC(): ?float
     {
         return $this->EAC;
     }
 
-    public function setEAC(int $EAC): self
+    public function setEAC(float $EAC): self
     {
         $this->EAC = $EAC;
 
         return $this;
     }
 
-    public function getSES(): ?int
+    public function getSES(): ?float
     {
         return $this->SES;
     }
 
-    public function setSES(int $SES): self
+    public function setSES(float $SES): self
     {
         $this->SES = $SES;
 
         return $this;
     }
 
-    public function getSPC(): ?int
+    public function getSPC(): ?float
     {
         return $this->SPC;
     }
 
-    public function setSPC(int $SPC): self
+    public function setSPC(float $SPC): self
     {
         $this->SPC = $SPC;
 
         return $this;
     }
 
-    public function getMATH(): ?int
+    public function getMATH(): ?float
     {
         return $this->MATH;
     }
 
-    public function setMATH(int $MATH): self
+    public function setMATH(float $MATH): self
     {
         $this->MATH = $MATH;
 
         return $this;
     }
 
-    public function getEPS(): ?int
+    public function getEPS(): ?float
     {
         return $this->EPS;
     }
 
-    public function setEPS(int $EPS): self
+    public function setEPS(float $EPS): self
     {
         $this->EPS = $EPS;
 
         return $this;
     }
 
-    public function getTICE(): ?string
+    public function getTICE(): ?float
     {
         return $this->TICE;
     }
 
-    public function setTICE(string $TICE): self
+    public function setTICE(float $TICE): self
     {
         $this->TICE = $TICE;
 
@@ -212,7 +212,7 @@ class Seconde
         return $this;
     }
 
-    public function getAS(): ?int
+    public function getAS(): ?float
     {
         return $this->annee_scolaire;
     }

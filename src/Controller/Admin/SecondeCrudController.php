@@ -20,8 +20,8 @@ class SecondeCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-           yield TextField::new('n_mat')->setCssClass("w-50");
-           yield NumberField::new('MLG')->setCssClass("w-50");
+           yield TextField::new('n_mat')->setCssClass("w-50")->setMaxLength(10);
+           yield NumberField::new('MLG')->setCssClass("w-50")->setRoundingMode(true);
            yield NumberField::new('FRS')->setCssClass("w-50");
            yield NumberField::new('ANG')->setCssClass("w-50");
            yield NumberField::new('HG')->setCssClass("w-50");
@@ -45,6 +45,17 @@ class SecondeCrudController extends AbstractCrudController
             ->add(Crud::PAGE_EDIT, Action::DELETE)
             ->add(Crud::PAGE_INDEX, Action::new("ok",'fas' ,'fas fa-file-invoice')->linkToRoute('app_login'));
 
+    }
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // defines the initial sorting applied to the list of entities
+            // (user can later change this sorting by clicking on the table columns)
+            ->setDefaultSort(['id' => 'DESC'])
+//            ->setDefaultSort(['id' => 'DESC', 'title' => 'ASC', 'startsAt' => 'DESC'])
+            // you can sort by Doctrine associations up to two levels
+//            ->setDefaultSort(['seller.name' => 'ASC'])
+            ;
     }
 
 }

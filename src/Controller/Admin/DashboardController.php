@@ -6,6 +6,7 @@ use App\Entity\Classe;
 use App\Entity\Etudiant;
 use App\Entity\Seconde;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Locale;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -48,19 +49,36 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        return [
 //            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-            MenuItem::section('Blog'),
-            MenuItem::linkToCrud('User', 'fa fa-user', User::class),
-            MenuItem::linkToCrud('Etudiant', 'fa fa-users', Etudiant::class),
+       yield MenuItem::section('Blog');
+//       yield MenuItem::subMenu('User','fa fa-user')->setSubItems([
+//           MenuItem::linkToCrud('Voir', 'fa fa-eye', User::class),
+//           MenuItem::linkToCrud('Ajout', 'fa fa-plus', User::class)->setAction(Crud::PAGE_NEW),
+//       ]);
+       yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+       yield MenuItem::linkToCrud('Etudiant', 'fa fa-users', Etudiant::class);
 
 //            MenuItem::section('Users'),
-            MenuItem::linkToCrud('Classe', 'fa fa-notes-medical', Classe::class),
-            MenuItem::linkToCrud('Seconde', 'fa fa-dice-one', Seconde::class),
-            MenuItem::linkToCrud('Premiere', 'fa fa-dice-two', Seconde::class),
-            MenuItem::linkToCrud('Terminale', 'fa fa-dice-three', Seconde::class),
-        ];
+
+        yield MenuItem::linkToCrud('Classe', 'fa fa-notes-medical', Classe::class);
+        yield MenuItem::linkToCrud('Seconde', 'fa fa-dice-one', Seconde::class);
+        yield MenuItem::linkToCrud('Premiere', 'fa fa-dice-two', Seconde::class);
+        yield MenuItem::linkToCrud('Terminale', 'fa fa-dice-three', Seconde::class);
+    }
+    public function configureCrud(): Crud
+    {
+        return Crud::new()
+            // this defines the pagination size for all CRUD controllers
+            // (each CRUD controller can override this value if needed)
+            ->setPaginatorPageSize(10)
+            ->setPaginatorRangeSize(4)
+
+            // these are advanced options related to Doctrine Pagination
+            // (see https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/tutorials/pagination.html)
+            ->setPaginatorUseOutputWalkers(true)
+            ->setPaginatorFetchJoinCollection(true)
+            ;
     }
 
     public function configureDashboard(): Dashboard
@@ -95,7 +113,7 @@ class DashboardController extends AbstractDashboardController
             // by default, users can select between a "light" and "dark" mode for the
             // backend interface. Call this method if you prefer to disable the "dark"
             // mode for any reason (e.g. if your interface customizations are not ready for it)
-            ->disableDarkMode()
+//            ->disableDarkMode()
 
             // by default, all backend URLs are generated as absolute URLs. If you
             // need to generate relative URLs instead, call this method

@@ -31,12 +31,12 @@ class Classe
 
     public function getClasse(): ?string
     {
-        return $this->classe;
+        return strtoupper($this->classe);
     }
 
     public function setClasse(string $classe): self
     {
-        $this->classe = $classe;
+        $this->classe = strtoupper($classe);
 
         return $this;
     }
