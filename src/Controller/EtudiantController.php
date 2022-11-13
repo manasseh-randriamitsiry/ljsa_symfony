@@ -7,7 +7,6 @@ use App\Form\EtudiantFormType;
 use App\Repository\EtudiantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,25 +15,29 @@ class EtudiantController extends AbstractController
 {
     private EtudiantRepository $etudiantRepository;
     private EntityManagerInterface $entityManagerInterface;
+    #[Route('/etudiant', name: 'app_etudiant', methods: ['GET'])]
+    public function index(): Response
+    {
+        if ($this->getUser() == null) return $this->redirectToRoute('app_login');
+
+        $etudiants = $this->etudiantRepository->findAll();
+        return $this->render('student/student.html.twig',array(
+            'etudiants'=>$etudiants
+        ));
+    }
     public function __construct(EtudiantRepository $etudiantRepository, EntityManagerInterface $entityManagerInterface)
     {
         $this->etudiantRepository = $etudiantRepository;
         $this->entityManagerInterface = $entityManagerInterface;
     }
-    #[Route('/etudiant', name: 'app_etudiant', methods: ['GET'])]
-    public function index(): Response
-    {
-        $etudiants = $this->etudiantRepository->findAll();
-        return $this->render('index.html.twig',array(
-            'etudiants'=>$etudiants
-        ));
-    }
 
     #[Route('/etudiant/view/{id}', name: 'app_etudiant_view')]
     public function view($id): Response
     {
+        if ($this->getUser() == null) return $this->redirectToRoute('app_login');
+
         $etudiant = $this->etudiantRepository->find($id);
-        return $this->render('view.html.twig',array(
+        return $this->render('student/view.html.twig',array(
             'etudiant'=>$etudiant
         ));
     }
@@ -51,9 +54,10 @@ class EtudiantController extends AbstractController
     #[Route('/etudiant/update/{id}', name: 'app_etudiant_edit')]
     public function edit($id,Request $request)
     {
+        if ($this->getUser() == null) return $this->redirectToRoute('app_login');
+
         $etudiant = $this->etudiantRepository->find($id);
         $form = $this->createForm(EtudiantFormType::class,$etudiant);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $updateEtudiant = $form->getData();
@@ -61,7 +65,7 @@ class EtudiantController extends AbstractController
             $this->entityManagerInterface->flush();
             return $this->redirectToRoute('app_etudiant');
         }
-        return $this->render('update.html.twig',array(
+        return $this->render('student/update.html.twig',array(
             'etudiant'=>$etudiant,
             'form'=>$form->createView()
         ));
@@ -69,9 +73,10 @@ class EtudiantController extends AbstractController
     #[Route('/etudiant/create', name: 'app_etudiant_create')]
     public function create(Request $request): Response
     {
+        if ($this->getUser() == null) return $this->redirectToRoute('app_login');
+
         $etudiant = new Etudiant();
         $form = $this->createForm(EtudiantFormType::class,$etudiant);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $newEtudiant = $form->getData();
@@ -80,7 +85,7 @@ class EtudiantController extends AbstractController
             return $this->redirectToRoute('app_etudiant');
         }
 
-        return $this->render('create.html.twig',[
+        return $this->render('student/create.html.twig',[
             'form'=>$form->createView()
         ]);
     }
