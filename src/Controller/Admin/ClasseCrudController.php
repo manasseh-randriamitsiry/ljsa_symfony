@@ -32,7 +32,7 @@ class ClasseCrudController extends AbstractCrudController
 //            ->setDefaultSort(['id' => 'DESC', 'title' => 'ASC', 'startsAt' => 'DESC'])
             // you can sort by Doctrine associations up to two levels
 //            ->setDefaultSort(['seller.name' => 'ASC'])
-            ->addFormTheme('foo.html.twig')
+
             ;
     }
 

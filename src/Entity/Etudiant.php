@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
-#[UniqueEntity('Nmat',message: 'email dejà utilisé',)]
+#[UniqueEntity('Nmat',message: 'numero matricule dejà utilisé',)]
 class Etudiant
 {
     #[ORM\Id]
@@ -26,11 +26,11 @@ class Etudiant
     private ?\DateTimeInterface $date_nais = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $classe = null;
-
-//    #[ORM\]
-    #[ORM\Column(length: 10)]
     private ?string $Nmat = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Classe $classe = null;
 
     public function getId(): ?int
     {
@@ -73,27 +73,32 @@ class Etudiant
         return $this;
     }
 
-    public function getClasse(): ?string
-    {
-        return strtolower($this->classe);
-    }
-
-    public function setClasse(string $classe): self
-    {
-        $this->classe = strtolower($classe);
-
-        return $this;
-    }
-
     public function getNmat(): ?string
     {
-        return $this->Nmat;
+        return strtoupper($this->Nmat);
     }
 
     public function setNmat(string $Nmat): self
     {
-        $this->Nmat = $Nmat;
+        $this->Nmat = strtoupper($Nmat);
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNmat();
+    }
+
+    public function getClasse(): ?Classe
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(?Classe $classe): self
+    {
+        $this->classe = $classe;
 
         return $this;
     }
+
 }

@@ -39,6 +39,11 @@ class SecondeRepository extends ServiceEntityRepository
         }
     }
 
+    public function getx()
+    {
+        return 10;
+    }
+
 //    /**
 //     * @return Seconde[] Returns an array of Seconde objects
 //     */

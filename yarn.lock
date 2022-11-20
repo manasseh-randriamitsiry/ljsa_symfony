@@ -2034,6 +2034,14 @@
     "datatables.net" ">=1.12.1"
     "jquery" ">=1.7"
 
+"datatables.net-dt@^1.13.1":
+  "integrity" "sha512-J5ul/Y+Hpyfh8y02DKwgbmUij4e4R6bstnx4iYvY7FV2b2XuCP0Qow/Uuc0gtxDHSz2bTsoeRHqg4teoGftVDg=="
+  "resolved" "https://registry.npmjs.org/datatables.net-dt/-/datatables.net-dt-1.13.1.tgz"
+  "version" "1.13.1"
+  dependencies:
+    "datatables.net" ">=1.12.1"
+    "jquery" ">=1.7"
+
 "datatables.net@^1.13.1", "datatables.net@>=1.12.1":
   "integrity" "sha512-cX5dDHsbVdLLYKsWOSE0MvuGUcV88zU5dZ/taK2puJV6F9Fw0CFsP3+U/kr+qpDSFOBLWISRyM4Q9wWWovPTNg=="
   "resolved" "https://registry.npmjs.org/datatables.net/-/datatables.net-1.13.1.tgz"
@@ -2807,7 +2815,7 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
-"jquery@>=1.7":
+"jquery@^3.6.1", "jquery@>=1.7":
   "integrity" "sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw=="
   "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.1.tgz"
   "version" "3.6.1"

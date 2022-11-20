@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% for path in encore_entry_css_files('app') %}
+        <link rel="stylesheet" href="{{ absolute_url(path) }}">
+    {% endfor %}
+
+</head>
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-9 col-md-7 mx-auto">
+            <h3 class="mx-4 fw-bold">total: {{ etudiants|length }}</h3>
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <div>
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th scope="col">NºMatricule</th>
+                                <th scope="col">Totale</th>
+                                <th scope="col">Moyenne</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for etudiant in etudiants %}
+                                <tr>
+                                    <th scope="row">{{ etudiant.nmat }}</th>
+                                    <td>{{ etudiant.tot }}</td>
+                                    <td>{{ etudiant.moy }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+</html>

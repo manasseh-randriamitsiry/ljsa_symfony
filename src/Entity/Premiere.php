@@ -2,12 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\SecondeRepository;
-use Doctrine\DBAL\Types\Types;
+use App\Repository\PremiereRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SecondeRepository::class)]
-class Seconde
+#[ORM\Entity(repositoryClass: PremiereRepository::class)]
+class Premiere
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,6 +35,9 @@ class Seconde
     private ?float $SPC = null;
 
     #[ORM\Column]
+    private ?float $SVT = null;
+
+    #[ORM\Column]
     private ?float $MATH = null;
 
     #[ORM\Column]
@@ -45,26 +47,27 @@ class Seconde
     private ?float $TICE = null;
 
     #[ORM\Column]
-    private ?float $trimestre = null;
+    private ?float $PHYLO = null;
 
     #[ORM\Column]
-    private ?float $annee_scolaire = null;
+    private ?int $trimestre = null;
+
+    #[ORM\Column]
+    private ?int $annee_scolaire = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Etudiant $nmat = null;
-
-    #[ORM\Column()]
-    private ?float $total = null;
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
-    public function getTot(): ?float
+
+    public function getTotal(): ?float
     {
         return $this->MLG+$this->FRS+$this->ANG+$this->HG+$this->EAC+$this->SES+$this->SPC+$this->MATH+
-            $this->EPS+$this->TICE;
+            $this->EPS+$this->TICE+$this->getPHYLO();
     }
 
     public function getmoy()
@@ -156,6 +159,18 @@ class Seconde
         return $this;
     }
 
+    public function getSVT(): ?float
+    {
+        return $this->SVT;
+    }
+
+    public function setSVT(float $SVT): self
+    {
+        $this->SVT = $SVT;
+
+        return $this;
+    }
+
     public function getMATH(): ?float
     {
         return $this->MATH;
@@ -192,24 +207,36 @@ class Seconde
         return $this;
     }
 
-    public function getTrim(): ?int
+    public function getPHYLO(): ?float
+    {
+        return $this->PHYLO;
+    }
+
+    public function setPHYLO(float $PHYLO): self
+    {
+        $this->PHYLO = $PHYLO;
+
+        return $this;
+    }
+
+    public function getTrimestre(): ?int
     {
         return $this->trimestre;
     }
 
-    public function setTrim(int $trimestre): self
+    public function setTrimestre(int $trimestre): self
     {
         $this->trimestre = $trimestre;
 
         return $this;
     }
 
-    public function getAS(): ?float
+    public function getAnneeScolaire(): ?int
     {
         return $this->annee_scolaire;
     }
 
-    public function setAS(int $annee_scolaire): self
+    public function setAnneeScolaire(int $annee_scolaire): self
     {
         $this->annee_scolaire = $annee_scolaire;
 
@@ -227,17 +254,4 @@ class Seconde
 
         return $this;
     }
-
-    public function getTotal(): ?string
-    {
-        $this->total = $this->getTot();
-        return $this->total;
-    }
-
-    public function setTotal(string $total): self
-    {
-        $this->total = $this->getTot();
-        return $this;
-    }
-
 }

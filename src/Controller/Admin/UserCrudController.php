@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -23,15 +26,27 @@ class UserCrudController extends AbstractCrudController
           yield EmailField::new('email');
           yield TextField::new('password')->setLabel('Mot de passe');
     }
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+//            ->update(Crud::PAGE_INDEX,Action::NEW,function (Action $action){
+//                return $action->addCssClass('btn btn-success')->setLabel('Ajouter')->setIcon("fas fa-plus");
+//            })
+            ->add(Crud::PAGE_INDEX,Action::DETAIL)
+            ->add(Crud::PAGE_EDIT, Action::DELETE)
+            ->remove(Crud::PAGE_INDEX, Action::NEW)
+            ;
+
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters->add('email');
+    }
+
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud
-            // defines the initial sorting applied to the list of entities
-            // (user can later change this sorting by clicking on the table columns)
-            ->setDefaultSort(['id' => 'DESC'])
-//            ->setDefaultSort(['id' => 'DESC', 'title' => 'ASC', 'startsAt' => 'DESC'])
-            // you can sort by Doctrine associations up to two levels
-//            ->setDefaultSort(['seller.name' => 'ASC'])
-            ;
+        return $crud->setEntityLabelInPlural("Utilisateurs")
+            ->setEntityLabelInSingular("Utilisateur");
     }
 }

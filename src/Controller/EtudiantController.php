@@ -5,30 +5,44 @@ namespace App\Controller;
 use App\Entity\Etudiant;
 use App\Form\EtudiantFormType;
 use App\Repository\EtudiantRepository;
+use App\Service\PdfService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class EtudiantController extends AbstractController
 {
     private EtudiantRepository $etudiantRepository;
     private EntityManagerInterface $entityManagerInterface;
-    #[Route('/etudiant', name: 'app_etudiant', methods: ['GET'])]
+
+    public function __construct(EtudiantRepository $etudiantRepository, EntityManagerInterface $entityManagerInterface)
+    {
+        $this->etudiantRepository = $etudiantRepository;
+        $this->entityManagerInterface = $entityManagerInterface;
+    }
+
+    #[Route('/etudiant', name: 'app_etudiant')]
     public function index(): Response
     {
         if ($this->getUser() == null) return $this->redirectToRoute('app_login');
-
         $etudiants = $this->etudiantRepository->findAll();
         return $this->render('student/student.html.twig',array(
             'etudiants'=>$etudiants
         ));
     }
-    public function __construct(EtudiantRepository $etudiantRepository, EntityManagerInterface $entityManagerInterface)
+
+    #[Route('etudiant/pdf', name: 'app_etudiant_pdf')]
+    public function pdfAction(PdfService $pdfService)
     {
-        $this->etudiantRepository = $etudiantRepository;
-        $this->entityManagerInterface = $entityManagerInterface;
+        $etudiants = $this->etudiantRepository->findAll();
+        $html = $this->render('student/pdf.html.twig', ['etudiants' => $etudiants]);
+        header("Content-type: application/pdf",true,200);
+        $pdfService->showPdfFile($html,"etudiant.pdf");
+
+        return $html;
     }
 
     #[Route('/etudiant/view/{id}', name: 'app_etudiant_view')]
@@ -51,6 +65,7 @@ class EtudiantController extends AbstractController
 
         return $this->redirectToRoute('app_etudiant');
     }
+
     #[Route('/etudiant/update/{id}', name: 'app_etudiant_edit')]
     public function edit($id,Request $request)
     {
@@ -70,6 +85,7 @@ class EtudiantController extends AbstractController
             'form'=>$form->createView()
         ));
     }
+
     #[Route('/etudiant/create', name: 'app_etudiant_create')]
     public function create(Request $request): Response
     {

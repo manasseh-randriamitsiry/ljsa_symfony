@@ -4,8 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Classe;
 use App\Entity\Etudiant;
+use App\Entity\Premiere;
 use App\Entity\Seconde;
+use App\Entity\Terminale;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Locale;
@@ -51,7 +54,7 @@ class DashboardController extends AbstractDashboardController
     {
 //            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-       yield MenuItem::section('Blog');
+//       yield MenuItem::section('Blog');
 //       yield MenuItem::subMenu('User','fa fa-user')->setSubItems([
 //           MenuItem::linkToCrud('Voir', 'fa fa-eye', User::class),
 //           MenuItem::linkToCrud('Ajout', 'fa fa-plus', User::class)->setAction(Crud::PAGE_NEW),
@@ -63,8 +66,8 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::linkToCrud('Classe', 'fa fa-notes-medical', Classe::class);
         yield MenuItem::linkToCrud('Seconde', 'fa fa-dice-one', Seconde::class);
-        yield MenuItem::linkToCrud('Premiere', 'fa fa-dice-two', Seconde::class);
-        yield MenuItem::linkToCrud('Terminale', 'fa fa-dice-three', Seconde::class);
+        yield MenuItem::linkToCrud('Premiere', 'fa fa-dice-two', Premiere::class);
+        yield MenuItem::linkToCrud('Terminale', 'fa fa-dice-three', Terminale::class);
     }
     public function configureCrud(): Crud
     {
@@ -81,6 +84,7 @@ class DashboardController extends AbstractDashboardController
             ;
     }
 
+
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
@@ -92,7 +96,7 @@ class DashboardController extends AbstractDashboardController
             // by default EasyAdmin displays a black square as its default favicon;
             // use this method to display a custom favicon: the given path is passed
             // "as is" to the Twig asset() function:
-            // <link rel="shortcut icon" href="{{ asset('...') }}">
+//             <link rel="shortcut icon" href="{{ asset('...') }}">
             ->setFaviconPath('favicon.svg')
 
             // the domain used by default is 'messages'
@@ -110,34 +114,10 @@ class DashboardController extends AbstractDashboardController
             // to be displayed as a narrow column instead of the default expanded design
             ->renderSidebarMinimized()
 
-            // by default, users can select between a "light" and "dark" mode for the
-            // backend interface. Call this method if you prefer to disable the "dark"
-            // mode for any reason (e.g. if your interface customizations are not ready for it)
-//            ->disableDarkMode()
-
             // by default, all backend URLs are generated as absolute URLs. If you
             // need to generate relative URLs instead, call this method
             ->generateRelativeUrls()
 
-            // set this option if you want to enable locale switching in dashboard.
-            // IMPORTANT: this feature won't work unless you add the {_locale}
-            // parameter in the admin dashboard URL (e.g. '/admin/{_locale}').
-            // the name of each locale will be rendered in that locale
-            // (in the following example you'll see: "English", "Polski")
-            ->setLocales(['en', 'fr'])
-            // to customize the labels of locales, pass a key => value array
-            // (e.g. to display flags; although it's not a recommended practice,
-            // because many languages/locales are not associated to a single country)
-            ->setLocales([
-                'en' => '🇬🇧 English',
-                'fr' => '🇵🇱 French'
-            ])
-            // to further customize the locale option, pass an instance of
-            // EasyCorp\Bundle\EasyAdminBundle\Config\Locale
-            ->setLocales([
-                'en', // locale without custom options
-                Locale::new('fr', 'français', 'far fa-flag') // custom label and icon
-            ])
             ;
     }
 

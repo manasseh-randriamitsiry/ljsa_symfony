@@ -54,13 +54,15 @@ class ClasseRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findTotal($value): ?Classe
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
+//    public function getCoeffByNmat($value): ?Float
+//    {
+//        return 30.0;
+//        return $this->createQueryBuilder('c')
+//            ->andWhere('c.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//
+//    }
 }
