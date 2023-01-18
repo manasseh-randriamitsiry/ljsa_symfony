@@ -31,7 +31,6 @@ class SecondeCrudController extends AbstractCrudController
         $html = $this->render('pdf/seconde_pdf.html.twig', ['etudiants' => $secondes]);
         header("Content-type: application/pdf",true,200);
         $pdfService->showPdfFile($html,"seconde.pdf");
-
         return $html;
     }
 

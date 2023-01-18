@@ -8,9 +8,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -25,6 +29,7 @@ class UserCrudController extends AbstractCrudController
               ->onlyOnIndex();
           yield EmailField::new('email');
           yield TextField::new('password')->setLabel('Mot de passe');
+//          yield NumberField::new('roles');
     }
     public function configureActions(Actions $actions): Actions
     {

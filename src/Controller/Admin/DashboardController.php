@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Classe;
 use App\Entity\Etudiant;
 use App\Entity\Premiere;
+use App\Entity\Role;
 use App\Entity\Seconde;
 use App\Entity\Terminale;
 use App\Entity\User;
@@ -59,15 +60,16 @@ class DashboardController extends AbstractDashboardController
 //           MenuItem::linkToCrud('Voir', 'fa fa-eye', User::class),
 //           MenuItem::linkToCrud('Ajout', 'fa fa-plus', User::class)->setAction(Crud::PAGE_NEW),
 //       ]);
-       yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
-       yield MenuItem::linkToCrud('Etudiant', 'fa fa-users', Etudiant::class);
+       yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+//       yield MenuItem::linkToCrud('Role', 'fa fa-user', Role::class);
+       yield MenuItem::linkToCrud('Etudiants', 'fa fa-users', Etudiant::class);
 
 //            MenuItem::section('Users'),
 
-        yield MenuItem::linkToCrud('Classe', 'fa fa-notes-medical', Classe::class);
-        yield MenuItem::linkToCrud('Seconde', 'fa fa-dice-one', Seconde::class);
-        yield MenuItem::linkToCrud('Premiere', 'fa fa-dice-two', Premiere::class);
-        yield MenuItem::linkToCrud('Terminale', 'fa fa-dice-three', Terminale::class);
+        yield MenuItem::linkToCrud('Classes', 'fa fa-notes-medical', Classe::class);
+        yield MenuItem::linkToCrud('Secondes', 'fa fa-dice-one', Seconde::class);
+        yield MenuItem::linkToCrud('Premieres', 'fa fa-dice-two', Premiere::class);
+        yield MenuItem::linkToCrud('Terminales', 'fa fa-dice-three', Terminale::class);
     }
     public function configureCrud(): Crud
     {
