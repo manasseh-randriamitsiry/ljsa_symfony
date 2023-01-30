@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\ProfRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProfRepository::class)]
+#[UniqueEntity('p_n_matricule',message: 'numero matricule dejà utilisé',)]
 class Prof
 {
     #[ORM\Id]

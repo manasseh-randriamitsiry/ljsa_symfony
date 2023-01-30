@@ -38,8 +38,8 @@ class UserCrudController extends AbstractCrudController
 //                return $action->addCssClass('btn btn-success')->setLabel('Ajouter')->setIcon("fas fa-plus");
 //            })
             ->add(Crud::PAGE_INDEX,Action::DETAIL)
-            ->add(Crud::PAGE_EDIT, Action::DELETE)
             ->remove(Crud::PAGE_INDEX, Action::NEW)
+            ->remove(Crud::PAGE_INDEX,Action::EDIT)
             ;
 
     }
