@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Classe;
 use App\Entity\Etudiant;
+use App\Entity\Matiere;
 use App\Entity\Premiere;
+use App\Entity\Prof;
 use App\Entity\Role;
 use App\Entity\Seconde;
 use App\Entity\Terminale;
@@ -70,6 +72,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Secondes', 'fa fa-dice-one', Seconde::class);
         yield MenuItem::linkToCrud('Premieres', 'fa fa-dice-two', Premiere::class);
         yield MenuItem::linkToCrud('Terminales', 'fa fa-dice-three', Terminale::class);
+        yield MenuItem::linkToCrud('Profs', 'fa fa-notes-medical', Prof::class);
+        yield MenuItem::linkToCrud('Matière', 'fa fa-school', Matiere::class);
+
     }
     public function configureCrud(): Crud
     {
@@ -118,9 +123,7 @@ class DashboardController extends AbstractDashboardController
 
             // by default, all backend URLs are generated as absolute URLs. If you
             // need to generate relative URLs instead, call this method
-            ->generateRelativeUrls()
-
-            ;
+            ->generateRelativeUrls();
     }
 
 }
